@@ -7,10 +7,10 @@
   font-style: italic;
 }
 
-#conteneur {
-  width: 80%;
+#wrapper {
+  /* width: 80%; */
   height: 100px;
-  position: absolute;
+  /* position: absolute; */
   display: flex;
   justify-content: space-around;
   background: rgba(95, 94, 94, 0.933);
@@ -58,15 +58,35 @@
     /* background: blueviolet; */
 }
 
-#section_best_movie {
+
+.section_best_movie {
   background-size: cover;
-  padding: 150px 200px 180px 200px;
-}
-/*
-.best_movie_title {
-  font-size: 45px;
+  border:black 1px ;
+  padding: 10px 10px 10px 10px;
 }
 
+.section_best_movie_title_h1 {
+  /* padding-top: 80px; */
+  font-size: 40px;
+  color: black;
+}
+
+.section_best_movie_title_h2 {
+  /* padding-top: 80px; */
+  font-size: 30px;
+  color: greenyellow;
+}
+
+.section_best_button {
+  background-color:red;
+  color: black;
+  border:none;
+  font-size: 30px;
+  padding: 5px 30px;
+  border-radius:20px;
+}
+
+/*
 .button {
   font-size: 18px;
   width: 120px;
@@ -80,16 +100,21 @@
 }
 */
 
-#section_best_img img{
-  height: 100px;
-  position: relative;
-  display: flex;
-  justify-content: space-around;
-  background: rgba(95, 94, 94, 0.933);
-  width: 40%;
+#section_best_img_id.section_best_img img{
+  width: 20%;
+  /*
   max-width: 280px;
   min-width: 200px;
+  */
   float: right;
   border-radius: 10px;
+  /*
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
+  */
+}
+
+#wholepage {
+  width: 900px
+  margin-left: auto;
+  margin-right: auto;
 }

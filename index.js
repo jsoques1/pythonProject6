@@ -23,13 +23,15 @@ function main() {
     best_movie_title.innerHTML = value["results"][0]["title"];
 
     var best_movie_img = document.getElementsByClassName('section_best_img')[0].getElementsByTagName("img")[0];
+    console.log('document.getElementsByClassName("section_best_img")[0] =')
     console.log(document.getElementsByClassName('section_best_img')[0])
-    debugger
+    console.log('best_movie_img = ')
     console.log(best_movie_img)
-    /*
     best_movie_img.src = value['results'][0]['image_url']
     best_movie_img.alt = 'Check it'
-    */
+
+    var best_movie_description = document.getElementsByClassName('section_best_movie_title_h2')[0]
+    best_movie_description.innerHTML = 'IMDB score: ' + value["results"][0]["imdb_score"];
 
     let add_element = (id, name) => {
       const template = document.createElement('div');
@@ -48,9 +50,9 @@ function main() {
     
     document.body.appendChild(template);
     }
-    
+    /*  
     add_img(value['results'][0]['image_url'])
-  /*
+
      var objRef = document.body;
      for (let item of value['results']) {
        // console.log(item['id'] + " " + item['name'])
