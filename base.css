@@ -1,11 +1,3 @@
-article {
-  margin: auto;
-  margin-bottom: 20px;
-  width: 90%;
-  border: 1px solid black;
-  padding: 10px;
-}
-
 #main {
   font-weight: bold;
   color: red;
@@ -13,4 +5,91 @@ article {
 
 .important {
   font-style: italic;
+}
+
+#conteneur {
+  width: 80%;
+  height: 100px;
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  background: rgba(95, 94, 94, 0.933);
+  color: white;
+ 
+  padding-top: 50px;
+ /*
+  padding-left: 100px;
+  padding-right: 100px;
+
+  padding-bottom: 10px;
+
+  border: 1px solid black;
+  */
+  font-size: x-large;
+}
+
+#logo img{
+  width:40px;
+  height:40px;
+  margin-left: 10px;
+}
+
+.element:nth-child(1) 
+{
+  /* background: red; */
+  /* margin-top: 30px; */
+  align-self: flex-left;
+  margin-left: 10px;
+  padding-bottom: 20px;
+  font-size:xx-large ;
+      /* background: greenyellow; */
+}
+
+.element:nth-child(2) 
+{
+    margin-left: 400px;
+    margin-top: 10px;
+    /* background: greenyellow; */
+}
+
+.element:nth-child(3) 
+{
+  margin-top: 10px;
+    /* background: blueviolet; */
+}
+
+#section_best_movie {
+  background-size: cover;
+  padding: 150px 200px 180px 200px;
+}
+/*
+.best_movie_title {
+  font-size: 45px;
+}
+
+.button {
+  font-size: 18px;
+  width: 120px;
+}
+
+.best_movie_description p{
+  margin-right: 60%;
+  margin-top: 3%;
+  line-height: 180%;
+  font-style: italic;
+}
+*/
+
+#section_best_img img{
+  height: 100px;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  background: rgba(95, 94, 94, 0.933);
+  width: 40%;
+  max-width: 280px;
+  min-width: 200px;
+  float: right;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
 }
