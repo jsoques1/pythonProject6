@@ -153,7 +153,7 @@
   height: 430px;
   max-width: 860px;
   display: flex;
-  align-items: left;
+  align-items: center;
   position: relative;
   overflow: hidden;
   border:black 10px ;
