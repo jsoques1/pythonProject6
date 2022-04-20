@@ -1,0 +1,241 @@
+#main {
+  font-weight: bold;
+  color: red;
+}
+
+.important {
+  font-style: italic;
+}
+
+#wrapper {
+  /* width: 80%; */
+  height: 100px;
+  /* position: absolute; */
+  display: flex;
+  justify-content: space-around;
+  background: rgba(95, 94, 94, 0.933);
+  color: white;
+ 
+  padding-top: 50px;
+ /*
+  padding-left: 100px;
+  padding-right: 100px;
+
+  padding-bottom: 10px;
+
+  border: 1px solid black;
+  */
+  font-size: x-large;
+}
+
+#logo img{
+  width:40px;
+  height:40px;
+  margin-left: 10px;
+}
+
+.element:nth-child(1) 
+{
+  /* background: red; */
+  /* margin-top: 30px; */
+  align-self: flex-left;
+  margin-left: 10px;
+  padding-bottom: 20px;
+  font-size:xx-large ;
+      /* background: greenyellow; */
+}
+
+.element:nth-child(2) 
+{
+    margin-left: 400px;
+    margin-top: 10px;
+    /* background: greenyellow; */
+}
+
+.element:nth-child(3) 
+{
+  margin-top: 10px;
+    /* background: blueviolet; */
+}
+
+
+.section_best_movie {
+  height: 400px;
+  background-size: cover;
+  border:black 1px ;
+  padding: 10px 10px 10px 10px;
+}
+
+.section_best_movie_title_h1 {
+  /* padding-top: 80px; */
+  font-size: 40px;
+  color: black;
+}
+
+.section_best_movie_title_h2 {
+  /* padding-top: 80px; */
+  font-size: 40px;
+  color: darkolivegreen;
+}
+
+.section_best_button {
+  background-color:red;
+  color: black;
+  border:none;
+  font-size: 30px;
+  padding: 5px 30px;
+  border-radius:20px;
+}
+
+/*
+.button {
+  font-size: 18px;
+  width: 120px;
+}
+
+.best_movie_description p{
+  margin-right: 60%;
+  margin-top: 3%;
+  line-height: 180%;
+  font-style: italic;
+}
+*/
+
+#section_best_img_id.section_best_img img{
+  width: 20%;
+  /*
+  max-width: 280px;
+  min-width: 200px;
+  */
+  float: right;
+  border-radius: 10px;
+  /*
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
+  */
+}
+
+#wholepage {
+  width: 1080px
+}
+
+/*
+  margin-left: auto;
+  margin-right: auto;
+}
+*/
+
+
+
+.categories {
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*
+  background: linear-gradient(#222222, #111111);
+  */
+}
+
+.container {
+  width: px;
+}
+
+.container h2 {
+  font-size: 26px;
+}
+
+
+
+
+/* Carrousel */
+
+.carrousel--container {
+  height: 430px;
+  max-width: 860px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  border:black 10px ;
+  padding: 10px 10px 10px 10px;
+}
+.carrousel--container::-webkit-scrollbar {
+    height: 0;
+  }
+
+.carrousel--content {
+    display: grid;
+    grid-gap: 20px;
+    grid-auto-flow: column;
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+.box {
+  width: 200px;
+  /*
+  margin-right: 70px;
+  */
+}
+
+.box img{
+  width: 200px;
+  border-radius: 10px;
+  transition: .5s ease;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
+}
+
+#prev,
+#next {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background: white;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  outline: 0;
+  cursor: pointer;
+  position: absolute;
+}
+
+#prev {
+  top: 50%;
+  left: 0;
+  transform: translate(50%, -50%);
+  display: none;
+}
+
+#next {
+  top: 50%;
+  right: 0;
+  transform: translate(-50%, -50%);
+}
+
+/* Overlay */
+
+.overlay {
+  transition: .5s ease;
+  opacity: 0;
+  transform: translate(10%, -180%);
+  text-align: center;
+}
+
+.box:hover img{
+  opacity: 0.2;
+}
+
+.box:hover .overlay{
+  opacity: 1;
+}
+
+.overlay p{
+  font-size: 15px;
+  font-weight: bold;
+  padding-bottom: 60px
+}
+
+.overlay_button{
+  font-size: 13px;
+  width: 62px;
+}
