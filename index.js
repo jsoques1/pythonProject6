@@ -1,7 +1,113 @@
 const mainUrl = "http://localhost:8000/api/v1/titles/"
+const movies_categories = [
+  {
+      id: "", 
+      fullName: "Best Movies"
+  },
+  
+  {
+    id: "Action",
+    fullName: "Action Movies"
+  },
+  
+{
+  id: "Animation",
+  fullName: "Animation Movies"
+},
+  
+{
+  id: "Adventure",
+  fullName: "Adventure Movies"
+}]
 
-main();
-display_slider('')
+main(); 
+body();
+
+function body() {
+  for (let movies_category of movies_categories) {
+    /*
+    console.log(movies_category.id + " " +  movies_category.fullName);
+    */
+
+    make_category_section(movies_category.id, movies_category.fullName);
+    load_data(movies_category.id);
+  }
+}
+
+
+function make_category_section(category, category_name='') {
+let section=`
+<section class="categories" id="${category}">
+<div class="container">
+  <h2>${category_name}</h2>
+  <div class="controls" id="controls${category}">
+    <div class="button 1">
+      <button class="prev" id="prev${category}">❰</button>
+    </div> 
+    <div class="button 2">
+      <button class="next" id="next${category}">❱</button>
+    </div>
+     
+  </div> <!-- controls -->
+  <div class="carrousel--container" id="carrousel${category}">
+    <div class="carrousel--content" id="content${category}">
+        <div class="box" id="${category}1">
+            <img src="" alt="movie cover">
+            <div class= "overlay">
+                <p>Movie 1</p>
+                <button class= "overlay_button" onclick="openModal('${category}', 1)">More...</button>
+            </div>
+        </div>
+        <div class="box" id="${category}2">
+            <img src="" alt="movie cover">
+            <div class= "overlay">
+                <p>Movie 2</p>
+                <button class= "overlay_button" onclick="openModal('${category}', 2)">More...</button>
+            </div>
+        </div>
+        <div class="box" id="${category}3">
+            <img src="" alt="movie cover">
+            <div class= "overlay">
+                <p>Movie 3</p>
+                <button class= "overlay_button" onclick="openModal('${category}', 3)">More...</button>
+            </div>
+        </div>
+        <div class="box" id="${category}4">
+            <img src="" alt="movie cover">
+            <div class= "overlay">
+                <p>Movie 4</p>
+                <button class= "overlay_button" onclick="openModal('${category}', 4)">More...</button>
+            </div>    
+        </div>
+        <div class="box" id="${category}5">
+            <img src="" alt="movie cover">
+            <div class= "overlay">
+                <p>Movie 5</p>
+                <button class= "overlay_button" onclick="openModal('${category}', 5)">More...</button>
+            </div>
+        </div>
+        <div class="box" id="${category}6">
+            <img src="" alt="movie cover">
+            <div class= "overlay">
+                <p>Movie 6</p>
+                <button class= "overlay_button" onclick="openModal('${category}', 6)">More...</button>
+            </div>
+        </div>
+        <div class="box" id="${category}7">
+            <img src="" alt="movie cover">
+            <div class= "overlay">
+                <p>Movie 7</p>
+                <button class= "overlay_button" onclick="openModal('${category}', 7)">More...</button>
+            </div>
+        </div> 
+    </div> <!-- content${category} -->
+  </div> <!-- carousel${category} -->
+</div> <!-- container${category} -->
+</section>`
+
+document.write(section)
+console.log(document)
+}
 
 
 function main() {
@@ -74,7 +180,7 @@ function main() {
 }
 
 
-function display_slider(category) {
+function load_data(category) {
 
   var urlPage1 = mainUrl + "?sort_by=-imdb_score&genre=" + category;
   var urlPage2 = mainUrl + "?sort_by=-imdb_score&genre=" + category + "&page=2";
@@ -91,7 +197,7 @@ function display_slider(category) {
       var dataAll = dataPage1.concat(dataPage2);
 
       if (category == '')
-        dataAll.shift();   // for best-rated category, skip first movie
+        dataAll.shift();  
 
       for (i=0; i<7; i++) {
         var movieCover = dataAll[i]["image_url"];
@@ -107,37 +213,17 @@ function display_slider(category) {
     })
   })
 
-  const gap = 10;
-const carousel = document.getElementById("carrousel"),
-content = document.getElementById("content"),
-next = document.getElementById("next"),
-prev = document.getElementById("prev");
+const gap = 10;
+const carousel = document.getElementById(`carrousel${category}`),
+content = document.getElementById(`content${category}`),
+next = document.getElementById(`next${category}`),
+prev = document.getElementById(`prev${category}`);
 
 next.addEventListener("click", e => {
   carousel.scrollBy(width + gap, 0);
-    /*
-  if (carousel.scrollWidth !== 0) {
-    prev.style.display = "flex";
-  }
-
-  if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
-    next.style.display = "none";
-  }
-  */
 }); 
 prev.addEventListener("click", e => {
   carousel.scrollBy(-(width + gap), 0);
-/*
-  if (carousel.scrollLeft - width - gap <= 0) {
-    prev.style.display = "none";
-  }
-
-
-  if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
-    next.style.display = "flex";
-      
-  }
-  */
 });
 
 let width = carousel.offsetWidth;
@@ -207,11 +293,3 @@ function fetchModalData(id) {
 
 function noOP() {
 }
-
-
-
-
-
-
-
-
