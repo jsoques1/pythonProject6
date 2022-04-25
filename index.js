@@ -1,34 +1,7 @@
 const mainUrl = "http://localhost:8000/api/v1/titles/"
 
- main();
-  display_slider('')
-  const gap = 16;
-const carousel = document.getElementById("carrousel"),
-  content = document.getElementById("content"),
-next = document.getElementById("next"),
-prev = document.getElementById("prev");
-
-next.addEventListener("click", e => {
-  carousel.scrollBy(width + gap, 0);
-  if (carousel.scrollWidth !== 0) {
-    prev.style.display = "flex";
-  }
-  if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
-    next.style.display = "none";
-  }
-}); 
-prev.addEventListener("click", e => {
-  carousel.scrollBy(-(width + gap), 0);
-  if (carousel.scrollLeft - width - gap <= 0) {
-    prev.style.display = "none";
-  }
-  if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
-    next.style.display = "flex";
-  }
-});
-
-let width = carousel.offsetWidth;
-window.addEventListener("resize", e => (width = carousel.offsetWidth));
+main();
+display_slider('')
 
 
 function main() {
@@ -133,6 +106,103 @@ function display_slider(category) {
       }
     })
   })
+
+  const gap = 10;
+const carousel = document.getElementById("carrousel"),
+content = document.getElementById("content"),
+next = document.getElementById("next"),
+prev = document.getElementById("prev");
+
+next.addEventListener("click", e => {
+  carousel.scrollBy(width + gap, 0);
+    /*
+  if (carousel.scrollWidth !== 0) {
+    prev.style.display = "flex";
+  }
+
+  if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+    next.style.display = "none";
+  }
+  */
+}); 
+prev.addEventListener("click", e => {
+  carousel.scrollBy(-(width + gap), 0);
+/*
+  if (carousel.scrollLeft - width - gap <= 0) {
+    prev.style.display = "none";
+  }
+
+
+  if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+    next.style.display = "flex";
+      
+  }
+  */
+});
+
+let width = carousel.offsetWidth;
+window.addEventListener("resize", e => (width = carousel.offsetWidth));
+
+}
+
+
+function openModal(category, num) {
+  var modal = document.getElementById("modal");
+  var span = document.getElementsByClassName("close")[0];
+
+  var modalId = document.getElementById(category + num.toString()).getElementsByTagName("img")[0].id;
+
+  fetchModalData(modalId)
+
+  modal.style.display = "block";
+
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal)
+      modal.style.display = "none";
+  }
+}
+
+function fetchModalData(id) {
+
+	fetch(mainUrl + id)
+	.then(response => response.json())
+	.then(data => {
+
+    document.getElementById('modal-cover').src = data["image_url"];
+		document.getElementById('modal-title').innerHTML = data["title"];
+
+    document.getElementById('modal-year').innerHTML = data["year"];
+    document.getElementById('modal-duration').innerHTML = data["duration"] + " min";
+    document.getElementById('modal-genres').innerHTML = data["genres"];
+    document.getElementById('modal-imdb').innerHTML = data["imdb_score"] + " / 10";
+
+    document.getElementById('modal-directors').innerHTML = data["directors"];
+    document.getElementById('modal-cast').innerHTML = data["actors"] + "...";
+    document.getElementById('modal-country').innerHTML = data["countries"];
+
+
+    if (typeof data["rated"] === 'string' || data["rated"] instanceof String)
+      document.getElementById('modal-rating').innerHTML = data["rated"];
+    else
+      document.getElementById('modal-rating').innerHTML = data["rated"] + "+";  // add "+" if age rating is a number
+
+    var modalBoxOffice = document.getElementById('modal-box-office');
+    if (data["worldwide_gross_income"] == null)
+      modalBoxOffice.innerHTML = "N/A";  // placeholder for unspecified box-office   
+    else 
+      modalBoxOffice.innerHTML = data["worldwide_gross_income"] + " " + data["budget_currency"];
+
+    var regExp = /[a-zA-Z]/g;
+    if (regExp.test(data["long_description"]))
+      document.getElementById('modal-desc').innerHTML = data["long_description"]; 
+    else
+      document.getElementById('modal-desc').innerHTML = "N/A";  // placeholder for missing description
+    
+	})
 }
 
 function noOP() {
