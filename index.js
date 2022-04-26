@@ -24,10 +24,16 @@ main();
 body();
 
 function body() {
+
+var movie_id=0;
+
   for (let movies_category of movies_categories) {
     /*
     console.log(movies_category.id + " " +  movies_category.fullName);
     */
+     movie_id += 1;
+    i=`movie_id=${movie_id}`
+    console.log(i);
 
     make_category_section(movies_category.id, movies_category.fullName);
     load_data(movies_category.id);
@@ -35,7 +41,9 @@ function body() {
 }
 
 
+
 function make_category_section(category, category_name='') {
+
 let section=`
 <section class="categories" id="${category}">
 <div class="container">
@@ -52,53 +60,25 @@ let section=`
   <div class="carrousel--container" id="carrousel${category}">
     <div class="carrousel--content" id="content${category}">
         <div class="box" id="${category}1">
-            <img src="" alt="movie cover">
-            <div class= "overlay">
-                <p>Movie 1</p>
-                <button class= "overlay_button" onclick="openModal('${category}', 1)">More...</button>
-            </div>
+            <img src="" alt="movie cover" onclick="details(this)">
         </div>
         <div class="box" id="${category}2">
-            <img src="" alt="movie cover">
-            <div class= "overlay">
-                <p>Movie 2</p>
-                <button class= "overlay_button" onclick="openModal('${category}', 2)">More...</button>
-            </div>
+            <img src="" alt="movie cover"  onclick="details(this)">
         </div>
         <div class="box" id="${category}3">
-            <img src="" alt="movie cover">
-            <div class= "overlay">
-                <p>Movie 3</p>
-                <button class= "overlay_button" onclick="openModal('${category}', 3)">More...</button>
-            </div>
+            <img src="" alt="movie cover"  onclick="details(this)">
         </div>
         <div class="box" id="${category}4">
-            <img src="" alt="movie cover">
-            <div class= "overlay">
-                <p>Movie 4</p>
-                <button class= "overlay_button" onclick="openModal('${category}', 4)">More...</button>
-            </div>    
+            <img src="" alt="movie cover" onclick="details(this)">  
         </div>
         <div class="box" id="${category}5">
-            <img src="" alt="movie cover">
-            <div class= "overlay">
-                <p>Movie 5</p>
-                <button class= "overlay_button" onclick="openModal('${category}', 5)">More...</button>
-            </div>
+            <img src="" alt="movie cover"  onclick="details(this)">
         </div>
         <div class="box" id="${category}6">
-            <img src="" alt="movie cover">
-            <div class= "overlay">
-                <p>Movie 6</p>
-                <button class= "overlay_button" onclick="openModal('${category}', 6)">More...</button>
-            </div>
+            <img src="" alt="movie cover" onclick="details(this)">
         </div>
         <div class="box" id="${category}7">
-            <img src="" alt="movie cover">
-            <div class= "overlay">
-                <p>Movie 7</p>
-                <button class= "overlay_button" onclick="openModal('${category}', 7)">More...</button>
-            </div>
+            <img src="" alt="movie cover" onclick="details(this)">
         </div> 
     </div> <!-- content${category} -->
   </div> <!-- carousel${category} -->
@@ -110,9 +90,8 @@ console.log(document)
 }
 
 
+
 function main() {
-    //fetch("https://dog.ceo/api/breeds/list/all")
-    //fetch("http://localhost:8000/api/v1/genres/")
     fetch("http://localhost:8000/api/v1/titles?sort_by=-imdb_score")
     .then(function(res) {
       if (res.ok) {
@@ -202,11 +181,19 @@ function load_data(category) {
         var currentMovieTitle = document.getElementById(`${category}${index}`).getElementsByTagName("p")[0];
         var currentMovieCover = document.getElementById(`${category}${index}`).getElementsByTagName("img")[0];
             
+
         currentMovieCover.src = movieCover;
         currentMovieCover.id = movieId;
+        currentMovieCover.alt = "";
+        /*
         currentMovieTitle.innerHTML = movieTitle;
-      }
+        */
+      }   
     })
+    .catch(function(err) {
+      // Une erreur est survenue
+      alert("error")
+    });
   })
 
 const gap = 10;
@@ -216,23 +203,46 @@ next = document.getElementById(`next${category}`),
 prev = document.getElementById(`prev${category}`);
 
 next.addEventListener("click", e => {
-  carousel.scrollBy(width + gap, 0);
+  carousel.scrollBy(carousel.offsetWidth + gap, 0);
 }); 
 prev.addEventListener("click", e => {
-  carousel.scrollBy(-(width + gap), 0);
+  carousel.scrollBy(-(carousel.offsetWidth + gap), 0);
 });
 
+/*
 let width = carousel.offsetWidth;
 window.addEventListener("resize", e => (width = carousel.offsetWidth));
-
+*/
 }
 
 
-function openModal(category, num) {
+function details(object) 
+{
   var modal = document.getElementById("modal");
   var span = document.getElementsByClassName("close")[0];
 
-  var modalId = document.getElementById(category + num.toString()).getElementsByTagName("img")[0].id;
+  console.log(`object=${object}`)
+  console.log(object.id)
+  console.log(object.src)
+  fetchModalData(object.id)
+
+  modal.style.display = "block";
+
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal)
+      modal.style.display = "none";
+  }
+}
+
+function openModal(num) {
+  var modal = document.getElementById("modal");
+  var span = document.getElementsByClassName("close")[0];
+
+  var modalId = document.getElementById(`${num}`).getElementsByTagName("img")[0].id;
 
   fetchModalData(modalId)
 
@@ -250,6 +260,7 @@ function openModal(category, num) {
 
 function fetchModalData(id) {
 
+  console.log(`fetch_modal(${mainUrl}${id})`)
 	fetch(mainUrl + id)
 	.then(response => response.json())
 	.then(data => {
@@ -285,7 +296,4 @@ function fetchModalData(id) {
       document.getElementById('modal-desc').innerHTML = "N/A";  // placeholder for missing description
     
 	})
-}
-
-function noOP() {
 }
