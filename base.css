@@ -7,6 +7,11 @@
   font-style: italic;
 }
 
+#ref
+{
+  color: white;
+}
+
 #wrapper {
   /* width: 80%; */
   height: 100px;
@@ -59,26 +64,26 @@
 }
 
 
-.section_best_movie {
+.best_movie {
   height: 400px;
-  background-size: cover;
+  /* background-size: cover; */
   border:black 1px ;
   padding: 10px 10px 10px 10px;
 }
 
-.section_best_movie_title_h1 {
+.best_movie_title {
   /* padding-top: 80px; */
   font-size: 40px;
   color: black;
 }
 
-.section_best_movie_title_h2 {
+.best_movie_score {
   /* padding-top: 80px; */
   font-size: 40px;
   color: darkolivegreen;
 }
 
-.section_best_button {
+.best_movie_play_button {
   background-color:red;
   color: black;
   border:none;
@@ -101,7 +106,7 @@
 }
 */
 
-#section_best_img_id.section_best_img img{
+.best_img img{
   width: 20%;
   /*
   max-width: 280px;

@@ -131,70 +131,65 @@ function main() {
      console.log('image_url = ' + value['results'][0]['image_url']);
      console.log('*************************************')
   
-    var best_movie_title = document.getElementsByClassName('section_best_movie_title_h1')[0];
+    var best_movie_title = document.getElementsByClassName('best_movie_title')[0];
     best_movie_title.innerHTML = value["results"][0]["title"];
 
-    var best_movie_img = document.getElementsByClassName('section_best_img')[0].getElementsByTagName("img")[0];
-    console.log('document.getElementsByClassName("section_best_img")[0] =')
-    console.log(document.getElementsByClassName('section_best_img')[0])
+    var best_movie_img = document.getElementsByClassName('best_img')[0].getElementsByTagName("img")[0];
+    console.log('document.getElementsByClassName("best_img")[0] =')
+    console.log(document.getElementsByClassName('best_img')[0])
     console.log('best_movie_img = ')
     console.log(best_movie_img)
     best_movie_img.src = value['results'][0]['image_url']
     best_movie_img.alt = 'Check it'
 
-    var best_movie_description = document.getElementsByClassName('section_best_movie_title_h2')[0]
-    best_movie_description.innerHTML = 'IMDB score: ' + value["results"][0]["imdb_score"];
+    var best_movie_score = document.getElementsByClassName('best_movie_score')[0]
+    console.log('best_movie_score = ')
+    console.log(best_movie_score)
+    best_movie_score.innerHTML = 'IMDB score: ' + value["results"][0]["imdb_score"];
+    console.log('best_movie_score.innerHTML = ')
+    console.log(value["results"][0]["imdb_score"])
 
-    let add_element = (id, name) => {
-      const template = document.createElement('div');
-      template.innerHTML = id + " " + name;
-      template.className = name
-      template.id = id
-      
-      document.body.appendChild(template);
-  
-    }
-    let add_img = (url) => {
-    const template = document.createElement('img');
-    template.className = 'best-movie'
-    template.src = url
-    template.alt = 'check it'
-    
-    document.body.appendChild(template);
-    }
-    /*  
-    add_img(value['results'][0]['image_url'])
+    var url = value["results"][0]["url"];
+    console.log(url)
+    fetchBestDescription(url)
 
-     var objRef = document.body;
-     for (let item of value['results']) {
-       // console.log(item['id'] + " " + item['name'])
-       // console.log(item['id'])
-       console.log(item['name'])
-       add_element(item['id'], item['name']);
-    }
-    */
   })
   .catch(function(err) {
     // Une erreur est survenue
+    alert("error")
   });
 }
 
+function fetchBestDescription(url) {
+
+  var best_desc = document.getElementsByClassName('best_desc')[0];
+
+  fetch(url)
+	.then(response => response.json())
+	.then(value => {
+    best_desc.innerHTML = value["description"];
+	})
+  .catch(function(err) {
+    // Une erreur est survenue
+    alert("error")
+  });
+}
 
 function load_data(category) {
 
-  var urlPage1 = mainUrl + "?sort_by=-imdb_score&genre=" + category;
-  var urlPage2 = mainUrl + "?sort_by=-imdb_score&genre=" + category + "&page=2";
+  var main_page = `http://localhost:8000/api/v1/titles?sort_by=-imdb_score&genre=${category}`;
+  var second_page = `${main_page}&page=2`;
 
-  fetch(urlPage1)
+  fetch(main_page)
   .then(response => response.json())
   .then(data => {
-    var dataPage1 = data["results"];
+    var main_page_data = data["results"];
 
-    fetch(urlPage2)
+    fetch(second_page)
     .then(response => response.json())
     .then(data => {
-      var dataPage2 = data["results"];
-      var dataAll = dataPage1.concat(dataPage2);
+      var second_page_data = data["results"];
+      var dataAll = main_page_data.concat(second_page_data);
 
       if (category == '')
         dataAll.shift();  
@@ -203,8 +198,9 @@ function load_data(category) {
         var movieCover = dataAll[i]["image_url"];
         var movieTitle = dataAll[i]["title"];
         var movieId = dataAll[i]["id"];
-        var currentMovieTitle = document.getElementById(category + (i+1).toString()).getElementsByTagName("p")[0];
-        var currentMovieCover = document.getElementById(category + (i+1).toString()).getElementsByTagName("img")[0];
+        var index = i + 1;
+        var currentMovieTitle = document.getElementById(`${category}${index}`).getElementsByTagName("p")[0];
+        var currentMovieCover = document.getElementById(`${category}${index}`).getElementsByTagName("img")[0];
             
         currentMovieCover.src = movieCover;
         currentMovieCover.id = movieId;
