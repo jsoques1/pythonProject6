@@ -119,6 +119,8 @@ function main() {
     console.log('best_movie_img = ')
     console.log(best_movie_img)
     best_movie_img.src = value['results'][0]['image_url']
+    best_movie_img.id = value['results'][0]['id']
+    console.log(`best_movie_id=${best_movie_img.id}`)
     best_movie_img.alt = 'Check it'
 
     var best_movie_score = document.getElementsByClassName('best_movie_score')[0]
