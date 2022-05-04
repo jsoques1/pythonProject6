@@ -4,7 +4,7 @@ Développez une interface utilisateur pour une application web Python
 
 ## Installation de l'API rest
 
-Suivre les instructions données.
+Suivre les instructions données dans l'ennoncé du projet.
 
 ## Récupération du code sous github
 
