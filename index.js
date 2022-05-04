@@ -25,11 +25,7 @@ body();
 
 function body() {
 
-var movie_id=0;
-
   for (let movies_category of movies_categories) {
-     movie_id += 1;
-    i=`movie_id=${movie_id}`
 
     get_category_section(movies_category.id, movies_category.fullName);
     get_data(movies_category.id);
@@ -55,8 +51,8 @@ let section=`
 
   </div> <!-- controls -->
 
-  <div class="carrousel--container" id="carrousel${category}">
-    <div class="carrousel--content" id="content${category}">
+  <div class="slider-container" id="slider${category}">
+    <div class="slider-content" id="content${category}">
         <div class="box" id="${category}1">
             <img src="" alt="movie cover" onclick="details(this)">
         </div>
@@ -79,7 +75,7 @@ let section=`
             <img src="" alt="movie cover" onclick="details(this)">
         </div> 
     </div> <!-- content${category} -->
-  </div> <!-- carousel${category} -->
+  </div> <!-- slider${category} -->
 </div>
 </div> <!-- container${category} -->
 </section>`
@@ -144,23 +140,19 @@ function get_data(category) {
     .then(response => response.json())
     .then(data => {
       var second_page_data = data["results"];
-      var dataAll = main_page_data.concat(second_page_data);
+      var all_data = main_page_data.concat(second_page_data);
 
       if (category == '')
-        dataAll.shift();  
+      all_data.shift();  
 
       for (i=0; i<7; i++) {
-        var movieCover = dataAll[i]["image_url"];
-        var movieTitle = dataAll[i]["title"];
-        var movieId = dataAll[i]["id"];
+        var movieCover = all_data[i]["image_url"];
+        var movieId = all_data[i]["id"];
         var index = i + 1;
-        var currentMovieTitle = document.getElementById(`${category}${index}`).getElementsByTagName("p")[0];
         var currentMovieCover = document.getElementById(`${category}${index}`).getElementsByTagName("img")[0];
-            
 
         currentMovieCover.src = movieCover;
         currentMovieCover.id = movieId;
-        currentMovieCover.alt = "";
       }   
     })
     .catch(function(err) {
@@ -170,21 +162,23 @@ function get_data(category) {
   })
 
 const gap = 10;
-const carousel = document.getElementById(`carrousel${category}`),
+const slider = document.getElementById(`slider${category}`),
+/*
 content = document.getElementById(`content${category}`),
+*/
 next = document.getElementById(`next${category}`),
 prev = document.getElementById(`prev${category}`);
 
 next.addEventListener("click", e => {
-  carousel.scrollBy(carousel.offsetWidth + gap, 0);
+  slider.scrollBy(slider.offsetWidth + gap, 0);
 }); 
 prev.addEventListener("click", e => {
-  carousel.scrollBy(-(carousel.offsetWidth + gap), 0);
+  slider.scrollBy(-(slider.offsetWidth + gap), 0);
 });
 
 /*
-let width = carousel.offsetWidth;
-window.addEventListener("resize", e => (width = carousel.offsetWidth));
+let width = slider.offsetWidth;
+window.addEventListener("resize", e => (width = slider.offsetWidth));
 */
 }
 
@@ -214,22 +208,26 @@ function get_modal_data(id) {
 	.then(response => response.json())
 	.then(data => {
 
-    document.getElementById('modal-cover').src = data["image_url"];
-		document.getElementById('modal-title').innerHTML = data["title"];
-    document.getElementById('modal-year').innerHTML = data["year"];
-    document.getElementById('modal-duration').innerHTML = data["duration"] + " min";
-    document.getElementById('modal-genres').innerHTML = data["genres"];
-    document.getElementById('modal-imdb').innerHTML = data["imdb_score"];
-    document.getElementById('modal-directors').innerHTML = data["directors"];
-    document.getElementById('modal-cast').innerHTML = data["actors"];
-    document.getElementById('modal-country').innerHTML = data["countries"];
-    document.getElementById('modal-rating').innerHTML = data["rated"];
+    /*****************/
+    console.log(data)
+    /*****************/
 
-    var modalBoxOffice = document.getElementById('modal-box-office');
+    document.getElementById('cover').src = data["image_url"];
+		document.getElementById('title').innerHTML = data["title"];
+    document.getElementById('year').innerHTML = data["year"];
+    document.getElementById('duration').innerHTML = data["duration"] + " min";
+    document.getElementById('genres').innerHTML = data["genres"];
+    document.getElementById('imdb').innerHTML = data["imdb_score"];
+    document.getElementById('directors').innerHTML = data["directors"];
+    document.getElementById('cast').innerHTML = data["actors"];
+    document.getElementById('country').innerHTML = data["countries"];
+    document.getElementById('rating').innerHTML = data["rated"];
+
+    var box_office = document.getElementById('box-office');
     if (data["worldwide_gross_income"] == null)
-      modalBoxOffice.innerHTML = "Unknown";   
+      box_office.innerHTML = "Unknown";   
     else 
-      modalBoxOffice.innerHTML = data["worldwide_gross_income"] + " " + data["budget_currency"];
-    document.getElementById('modal-desc').innerHTML = data["long_description"];    
+      box_office.innerHTML = data["worldwide_gross_income"] + " " + data["budget_currency"];
+      document.getElementById('desc').innerHTML = data["long_description"];    
 	})
 }
