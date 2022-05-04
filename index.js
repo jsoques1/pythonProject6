@@ -263,7 +263,7 @@ function openModal(num) {
 function fetchModalData(id) {
 
   console.log(`fetch_modal(${mainUrl}${id})`)
-	fetch(mainUrl + id)
+	fetch("http://localhost:8000/api/v1/titles/" + id)
 	.then(response => response.json())
 	.then(data => {
 
